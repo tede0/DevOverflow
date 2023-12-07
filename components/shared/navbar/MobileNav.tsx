@@ -8,6 +8,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {usePathname} from 'next/navigation'
 import React from 'react'
+import LogInButton from '../buttons/LogInButton'
+import SignUpButton from '../buttons/SignUpButton'
 
 const NavContent = () => {
   const pathname = usePathname()
@@ -55,17 +57,13 @@ const MobileNav = () => {
             <div className='flex flex-col gap-3'>
               <SheetClose>
                 <Link href='/sign-in'>
-                  <Button className='small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none'>
-                    <span className='primary-text-gradient'>Log In</span>
-                  </Button>
+                  <LogInButton />
                 </Link>
               </SheetClose>
 
               <SheetClose>
                 <Link href='/sign-up'>
-                  <Button className='small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none'>
-                    Sign Up
-                  </Button>
+                  <SignUpButton />
                 </Link>
               </SheetClose>
             </div>
