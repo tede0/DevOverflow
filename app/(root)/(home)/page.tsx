@@ -1,4 +1,5 @@
 import HomeFilters from '@/components/home/HomeFilters'
+import QuestionCard from '@/components/home/QuestionCard'
 import Filter from '@/components/shared/Filter'
 import LocalSearchBar from '@/components/shared/search/LocalSearchBar'
 import {Button} from '@/components/ui/button'
@@ -21,6 +22,18 @@ export default function Home() {
       </div>
 
       <HomeFilters />
+
+      <div className='mt-11'>
+        <QuestionCard
+          title='Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?'
+          tags={['REACT.JS', 'NEXT.JS']}
+          author='Sujata | JS Mastery'
+          dateAsked={new Date(2022, 4, 17)}
+          numberOfVotes={67}
+          numberOfAnswers={51}
+          numberOfViews={3967}
+        />
+      </div>
     </>
   )
 }

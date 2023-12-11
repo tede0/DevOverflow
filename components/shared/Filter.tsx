@@ -1,10 +1,8 @@
 'use client'
 
 import {Select, SelectContent, SelectGroup, SelectTrigger, SelectValue} from '@/components/ui/select'
-import {Item} from '@radix-ui/react-menubar'
 import {SelectItem} from '@radix-ui/react-select'
 import React from 'react'
-import RenderTag from './RenderTag'
 
 interface Filter {
   name: string
