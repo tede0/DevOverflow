@@ -1,7 +1,6 @@
 'use client'
 
-import {Select, SelectContent, SelectGroup, SelectTrigger, SelectValue} from '@/components/ui/select'
-import {SelectItem} from '@radix-ui/react-select'
+import {Select, SelectContent, SelectGroup, SelectTrigger, SelectValue, SelectItem} from '@/components/ui/select'
 import React from 'react'
 
 interface Filter {
