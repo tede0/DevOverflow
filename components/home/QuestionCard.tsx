@@ -1,70 +1,95 @@
-import Image from "next/image";
-import React from "react";
-import { Button } from "../ui/button";
+import Image from 'next/image'
+import React from 'react'
+import { Button } from '../ui/button'
+import Link from 'next/link'
+import RenderTag from '../shared/RenderTag'
+import Metric from '../shared/Metric'
+import { formatNumber, getTimestamp } from '@/lib/utils'
 
 interface QuestionCardProps {
-  title: string;
-  tags: { _id: number; name: string }[];
-  author: string;
-  createdAt: Date;
-  upvotes: number;
-  answers: number;
-  views: number;
+  _id: number
+  title: string
+  tags: { _id: number; name: string }[]
+  author: {
+    _id: number
+    name: string
+    picture: string
+  }
+  createdAt: Date
+  upvotes: number
+  answers: { answer: string }[]
+  views: number
 }
 
 const QuestionCard = ({
+  _id,
   title,
   tags,
   author,
-  createdAt: dateAsked,
-  upvotes: numberOfVotes,
-  answers: numberOfAnswers,
-  views: numberOfViews,
+  createdAt,
+  upvotes,
+  answers,
+  views,
 }: QuestionCardProps) => {
+  const timestamp = getTimestamp(createdAt)
+
   return (
-    <div className="background-light800_darkgradient rounded-lg p-8">
-      <div className="line-clamp-1 text-lg font-bold dark:text-white">
-        {title}
+    <div className='card-wrapper rounded-[10px] p-9 sm:p-11'>
+      <div className='flex flex-col-reverse items-start justify-between gap-5 sm:flex-row'>
+        <div>
+          <span className='subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden'>
+            {timestamp}
+          </span>
+          <Link href={`/question/${_id}`}>
+            <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1'>
+              {title}
+            </h3>
+          </Link>
+        </div>
       </div>
-      <div className="mt-3 flex gap-3">
-        {tags.map((tag, index) => (
-          <Button
-            key={index}
-            className="body-medium rounded-lg bg-light-800 px-6 py-3 text-xs capitalize text-light-500 shadow-none dark:bg-dark-300"
-          >
-            {tag.name}
-          </Button>
+      <div className='mt-3.5 flex flex-wrap gap-2'>
+        {tags.map((tag) => (
+          <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
         ))}
       </div>
 
-      <div className="mt-5 flex justify-between text-sm dark:text-white">
-        {author} | {dateAsked.toUTCString()}
-        <div className="flex items-center gap-1">
-          <Image
-            src="/assets/icons/like.svg"
-            alt="upvote"
-            width={16}
-            height={16}
-          />
-          <div className="text-xs">{numberOfVotes} Votes</div>
-          <Image
-            src="/assets/icons/message.svg"
-            alt="upvote"
-            width={16}
-            height={16}
-          />
-          <div className="text-xs">{numberOfAnswers} Comments</div>
-          <Image
-            src="/assets/icons/eye.svg"
-            alt="upvote"
-            width={16}
-            height={16}
-          />
-          <div className="text-xs">{numberOfViews} Views</div>
-        </div>
+      <div className='flex-between mt-6 w-full flex-wrap gap-3'>
+        <Metric
+          imgUrl='/assets/icons/avatar.svg'
+          alt='user'
+          value={author.name}
+          title={` - asked ${timestamp}`}
+          href={`/pofile/${author._id}`}
+          isAuthor
+          textStyles='body-medium text-dark400_light700'
+        />
+
+        <Metric
+          imgUrl='/assets/icons/like.svg'
+          alt='Upvotes'
+          value={formatNumber(upvotes)}
+          title=' Votes'
+          textStyles='small-medium text-dark400_light800'
+        />
+
+        <Metric
+          imgUrl='/assets/icons/message.svg'
+          alt='message'
+          value={formatNumber(answers.length)}
+          title=' Answers'
+          textStyles='small-medium text-dark400_light800'
+        />
+
+        <Metric
+          imgUrl='/assets/icons/eye.svg'
+          alt='views'
+          value={formatNumber(views)}
+          title=' Views'
+          textStyles='small-medium text-dark400_light800'
+        />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default QuestionCard;
+export default QuestionCard
